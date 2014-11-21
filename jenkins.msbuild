@@ -3,7 +3,7 @@
 	  <ToolPath>$(MSBuildProjectDirectory)\tools\</ToolPath>
     <TPath>$(ToolPath)\MSBuild.ExtensionPack.tasks</TPath>
     <TPath Condition="Exists('$(MSBuildProjectDirectory)\..\..\Common\MSBuild.ExtensionPack.tasks')">$(MSBuildProjectDirectory)\..\..\Common\MSBuild.ExtensionPack.tasks</TPath>
-    <ExtensionTasksPath Condition="Exists('$(ToolPath)')">$(ToolPath)</ExtensionTasksPath>
+    <ExtensionTasksPath Condition="Exists('$(ToolPath)')">$([MSBuild]::Unescape("$(ToolPath)"))</ExtensionTasksPath>
 	  <Configuration Condition="$(Configuration) == ''">Release</Configuration>
 	  <Platform Condition="$(Platform) == ''">AnyCPU</Platform>
     <SolutionDir>$(MSBuildProjectDirectory)</SolutionDir>
