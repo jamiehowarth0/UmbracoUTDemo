@@ -44,7 +44,7 @@ namespace UmbracoCI.Extensions.Tests
         {
             var currentDir = new DirectoryInfo(this.GetType().Assembly.Location);
             // First parent = "bin", second = current project (ProjectDir), third = solution, fourth = ?
-            return File.ReadAllText(String.Format("{0}\\MyTesco.Admin.UI\\App_Data\\umbraco.config", currentDir.Parent.Parent.Parent.Parent.FullName));
+            return File.ReadAllText(String.Format("{0}\\UmbracoCI.Web.UI\\App_Data\\umbraco.config", currentDir.Parent.Parent.Parent.Parent.FullName));
             // return base.GetXmlContent(templateId);
         }
 

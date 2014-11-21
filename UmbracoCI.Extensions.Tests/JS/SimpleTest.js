@@ -9,7 +9,7 @@ module("Simple Angular provider", {
         injector = angular.injector(["ng", "umbraco"]);
 
         ctrlScope = injector.get("$rootScope").$new();
-        ctrl = injector.get("$controller")("CodeGecko.SimpleDataType.Editor", { $scope: ctrlScope });
+        ctrl = injector.get("$controller")("CodeGeckoSimpleDataTypeEditor", { $scope: ctrlScope });
     },
     teardown: function () {
 

@@ -258,6 +258,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Plugins\SimplePlugin\backoffice\SimpleDataType\editors\editor.js" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -271,7 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="App_Plugins\" />
     <Folder Include="Controllers\" />
     <Folder Include="css\" />
     <Folder Include="masterpages\" />
@@ -349,6 +349,9 @@
       <Project>{37743518-9681-4b0f-9445-c5e14e3d9a66}</Project>
       <Name>UmbracoCI.Extensions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\SimplePlugin\package.manifest" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
