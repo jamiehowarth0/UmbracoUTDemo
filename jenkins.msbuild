@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-	  <ToolPath>$(MSBuildProjectDirectory)\tools\</ToolPath>
+	<ToolPath>$(MSBuildProjectDirectory)\tools\</ToolPath>
     <TPath>$(ToolPath)\MSBuild.ExtensionPack.tasks</TPath>
     <TPath Condition="Exists('$(MSBuildProjectDirectory)\..\..\Common\MSBuild.ExtensionPack.tasks')">$(MSBuildProjectDirectory)\..\..\Common\MSBuild.ExtensionPack.tasks</TPath>
     <ExtensionTasksPath Condition="Exists('$(ToolPath)')">$([MSBuild]::Unescape("$(ToolPath)"))</ExtensionTasksPath>
@@ -22,7 +23,7 @@
       <ChutzpahRunner>$(MSBuildProjectDirectory)\packages\Chutzpah.3.2.6\tools\chutzpah.console.exe /silent /junit $(SolutionDir)\chutzpah.xml /testMode JavaScript</ChutzpahRunner>
       <ChutzpahFiles>/path @(JavascriptTests->'%(fullpath)', ' /path ')</ChutzpahFiles>
     </PropertyGroup>
-	  
+	<Message Text="$(ExtensionTasksPath)" Condition="Exists('$(ExtensionTasksPath)')" />
     <MSBuild Projects="@(Projects)" Properties="Configuration=$(Configuration);Platform=$(Platform)" Targets="Build" />
     
     <MSBuild.ExtensionPack.CodeQuality.NUnit Assemblies="@(Assemblies)" ToolPath="$(ToolPath)" OutputXmlFile="$(MSBuildProjectDirectory)\nunit-results.xml" Framework="v4.0">
