@@ -4,3 +4,4 @@
 /UmbracoCI.Web.UI/App_Data/NuGetBackup
 bin
 obj
+NuGet.exe

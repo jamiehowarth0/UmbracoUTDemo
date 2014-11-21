@@ -1,0 +1,69 @@
+<Project ToolsVersion="4.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	  <ToolPath>$(MSBuildProjectDirectory)\tools\</ToolPath>
+    <TPath>$(ToolPath)\MSBuild.ExtensionPack.tasks</TPath>
+    <TPath Condition="Exists('$(MSBuildProjectDirectory)\..\..\Common\MSBuild.ExtensionPack.tasks')">$(MSBuildProjectDirectory)\..\..\Common\MSBuild.ExtensionPack.tasks</TPath>
+    <ExtensionTasksPath Condition="Exists('$(ToolPath)')">$(ToolPath)</ExtensionTasksPath>
+	  <Configuration Condition="$(Configuration) == ''">Release</Configuration>
+	  <Platform Condition="$(Platform) == ''">AnyCPU</Platform>
+    <SolutionDir>$(MSBuildProjectDirectory)</SolutionDir>
+  </PropertyGroup>
+  <Import Project="$(TPath)"/>
+  <Import Project="$(MSBuildProjectDirectory)\.nuget\nuget.targets"/>
+  <Target Name="Default">
+    <ItemGroup>
+	    <Projects Include="$(MSBuildProjectDirectory)\**\*.csproj" />
+	    <Assemblies Include="$(MSBuildProjectDirectory)\*.Tests\bin\**\*.Tests.dll"
+				          Exclude="$(MSBuildProjectDirectory)\**\Umbraco.Tests.dll" />
+      <JavascriptTests Include="$(MSBuildProjectDirectory)\*.Tests\**\*.js"
+                       Exclude="$(MSBuildProjectDirectory)\**\umbraco-references.js" />
+    </ItemGroup>
+    <PropertyGroup>
+      <ChutzpahRunner>$(MSBuildProjectDirectory)\packages\Chutzpah.3.2.6\tools\chutzpah.console.exe /silent /junit $(SolutionDir)\chutzpah.xml /testMode JavaScript</ChutzpahRunner>
+      <ChutzpahFiles>/path @(JavascriptTests->'%(fullpath)', ' /path ')</ChutzpahFiles>
+    </PropertyGroup>
+	  
+    <MSBuild Projects="@(Projects)" Properties="Configuration=$(Configuration);Platform=$(Platform)" Targets="Build" />
+    
+    <MSBuild.ExtensionPack.CodeQuality.NUnit Assemblies="@(Assemblies)" ToolPath="$(ToolPath)" OutputXmlFile="$(MSBuildProjectDirectory)\nunit-results.xml" Framework="v4.0">
+      <Output TaskParameter="Total" PropertyName="ResultTotal"/>
+      <Output TaskParameter="NotRun" PropertyName="ResultNotRun"/>
+      <Output TaskParameter="Failures" PropertyName="ResultFailures"/>
+      <Output TaskParameter="Errors" PropertyName="ResultErrors"/>
+      <Output TaskParameter="Inconclusive" PropertyName="ResultInconclusive"/>
+      <Output TaskParameter="Ignored" PropertyName="ResultIgnored"/>
+      <Output TaskParameter="Skipped" PropertyName="ResultSkipped"/>
+      <Output TaskParameter="Invalid" PropertyName="ResultInvalid"/>
+    </MSBuild.ExtensionPack.CodeQuality.NUnit>
+    <Message Text="ResultTotal: $(ResultTotal)"/>
+    <Message Text="ResultNotRun: $(ResultNotRun)"/>
+    <Message Text="ResultFailures: $(ResultFailures)"/>
+    <Message Text="ResultErrors: $(ResultErrors)"/>
+    <Message Text="ResultInconclusive: $(ResultInconclusive)"/>
+    <Message Text="ResultIgnored: $(ResultIgnored)"/>
+    <Message Text="ResultSkipped: $(ResultSkipped)"/>
+    <Message Text="ResultInvalid: $(ResultInvalid)"/>
+    <!-- Restore solution-level packages :-) -->
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="RestorePackages" Properties="PackagesConfig=$(MSBuildProjectDirectory)\.nuget\packages.config" />
+    <Exec Command="$(ChutzpahRunner) $(ChutzpahFiles)" IgnoreExitCode="true" />
+  </Target>
+  
+  <!--<Target Name="ExecuteStyleCop" AfterTargets="Default">
+    <PropertyGroup>
+      <StyleCopPath>$(MSBuildProjectDirectory)\UmbracoCI.Extensions</StyleCopPath>
+    </PropertyGroup>
+    <CreateItem Include="$(MSBuildProjectDirectory)\**\*.cs">
+      <Output TaskParameter="Include" ItemName="StyleCopFiles"/>
+    </CreateItem>
+    <MSBuild.ExtensionPack.CodeQuality.StyleCop TaskAction="Scan" SourceFiles="@(StyleCopFiles)" ShowOutput="true"
+        ForceFullAnalysis="true" CacheResults="false"
+        logFile="$(MSBuildProjectDirectory)\StyleCopLog.txt"
+        SettingsFile="$(StyleCopPath)\Settings.StyleCop">
+      <Output TaskParameter="Succeeded" PropertyName="AllPassed"/>
+      <Output TaskParameter="ViolationCount" PropertyName="Violations"/>
+      <Output TaskParameter="FailedFiles" ItemName="Failures"/>
+    </MSBuild.ExtensionPack.CodeQuality.StyleCop>
+    <Message Text="Succeeded: $(AllPassed), Violations: $(Violations)"/>
+    <Message Text="%(Failures.Identity) - Failed on Line %(Failures.LineNumber). %(Failures.CheckId): %(Failures.Message)"/>
+  </Target>-->
+</Project>

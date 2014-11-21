@@ -216,10 +216,23 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseUmbracoTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Configurations\UmbracoSettings\umbracoSettings.config" />
+    <None Include="Configurations\UmbracoSettings\umbracoSettings.minimal.config" />
+    <None Include="Configurations\UmbracoSettings\web.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UmbracoCI.Extensions\UmbracoCI.Extensions.csproj">
+      <Project>{37743518-9681-4b0f-9445-c5e14e3d9a66}</Project>
+      <Name>UmbracoCI.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
