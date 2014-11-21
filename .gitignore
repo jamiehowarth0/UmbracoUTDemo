@@ -1,0 +1,6 @@
+/packages
+/UmbracoCI.Web.UI/umbraco
+/UmbracoCI.Web.UI/umbraco_client
+/UmbracoCI.Web.UI/App_Data/NuGetBackup
+bin
+obj
