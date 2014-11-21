@@ -234,6 +234,10 @@
       <Name>UmbracoCI.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="JS\umbraco-references.js" />
+    <Content Include="JS\SimpleTest.js" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

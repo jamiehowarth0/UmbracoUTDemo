@@ -45,7 +45,7 @@
     <Message Text="ResultInvalid: $(ResultInvalid)"/>
     <!-- Restore solution-level packages :-) -->
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="RestorePackages" Properties="PackagesConfig=$(MSBuildProjectDirectory)\.nuget\packages.config" />
-    <Exec Command="$(ChutzpahRunner) $(ChutzpahFiles)" IgnoreExitCode="true" />
+    <Exec Command="$(ChutzpahRunner) $(ChutzpahFiles)" />
   </Target>
   
   <!--<Target Name="ExecuteStyleCop" AfterTargets="Default">

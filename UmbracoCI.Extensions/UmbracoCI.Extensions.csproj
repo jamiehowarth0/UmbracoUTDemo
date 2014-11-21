@@ -208,6 +208,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\SampleApiController.cs" />
     <Compile Include="Models\Enquiry.cs">
       <SubType>Code</SubType>
     </Compile>
