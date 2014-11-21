@@ -21,7 +21,7 @@
     </ItemGroup>
     <PropertyGroup>
       <ChutzpahRunner>$(MSBuildProjectDirectory)\packages\Chutzpah.3.2.6\tools\chutzpah.console.exe /silent /junit $(SolutionDir)\chutzpah.xml /testMode JavaScript</ChutzpahRunner>
-      <ChutzpahFiles>/path @(JavascriptTests->'%(fullpath)', ' /path ')</ChutzpahFiles>
+      <ChutzpahFiles>/path @(JavascriptTests->'&quot;%(fullpath)&quot;', ' /path ')</ChutzpahFiles>
     </PropertyGroup>
 	<Message Text="$(ExtensionTasksPath)" Condition="Exists('$(ExtensionTasksPath)')" />
     <MSBuild Projects="@(Projects)" Properties="Configuration=$(Configuration);Platform=$(Platform)" Targets="Build" />
